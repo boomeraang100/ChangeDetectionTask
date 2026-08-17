@@ -1,6 +1,6 @@
 from psychopy import visual, core, data, event, logging
 from psychopy.hardware import keyboard
-from psychopy import iohub
+#from psychopy import iohub
 import params as pm
 import helpers
 import random
@@ -35,7 +35,7 @@ def feedback(win, success):
   win.flip()
   core.wait(pm.FEEDBACK_TIME)
 
-def run_trial(win, mouse):
+def run_trial(win):
   visual.ImageStim(win, image=f"images/fixTarget.bmp").draw()
   timer = core.Clock()
   win.flip()
@@ -70,15 +70,15 @@ def run_trial(win, mouse):
   helpers.change_detection(win)
   helpers.confidence_rating(win)
 
-def run_trials(win, trials_num, mouse):
+def run_trials(win, trials_num):
   for trial in range(trials_num):
-    run_trial(win, mouse)
+    run_trial(win)
 
 def run_exp(win):
-    io = iohub.launchHubServer(window=win)
-    mouse = io.devices.mouse
+    #io = iohub.launchHubServer(window=win)
+    #mouse = io.devices.mouse
 
-    run_trials(win, pm.TRIALS_NUM, mouse)
+    run_trials(win, pm.TRIALS_NUM)
     
     win.close()
     core.quit()
