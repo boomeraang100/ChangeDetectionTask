@@ -11,23 +11,9 @@ from stimulus import BlockStimulus
 #from utils.monitors import load_default_monitor
 
 
-def initialize_window(config):
+def initialize_window():
     # initialize PsychoPy window
-    # mon = monitors.Monitor('myMonitor', width=28.5, distance=70.0) #TODO width=pm.MON_WIDTH, distance=pm.MON_DISTANCE
-    # mon = mn.load_default_monitor(config)
-    print("  initialize_window: entered", flush=True)
-
-    print("  initialize_window: creating Window", flush=True)
-    #win = visual.Window(fullscr=False, monitor=None, color = pm.BACKGROUND_COLOR, units=pm.UNITS)
-
-    win = visual.Window(
-        fullscr=False,
-        size=(800, 600),
-        color=pm.BACKGROUND_COLOR,
-        units=pm.UNITS,
-    )
-
-    print("  initialize_window: Window created", flush=True)
+    win = visual.Window(fullscr=True, color = pm.BACKGROUND_COLOR, units=pm.UNITS, screen=1)
     return win
 
 def stim_list(win) -> list:
