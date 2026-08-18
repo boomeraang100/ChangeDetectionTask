@@ -9,7 +9,6 @@ import sys
 import os
 import exp
 from pathlib import Path
-from utils.config import import_config
 
 def main():
   # Switch to the script folder

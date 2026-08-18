@@ -6,7 +6,6 @@ import params as pm
 import random
 import os
 import csv
-import utils.monitors as mn
 from stimulus import BlockStimulus
 #from utils.monitors import load_default_monitor
 
