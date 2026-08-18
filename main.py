@@ -18,27 +18,32 @@ def main():
     
   dlg = gui.Dlg(title = "Introduce participant's ID")
   dlg.addField('Participant ID') #, required = True
+  dlg.addField('Condition', choices = ["Select...", "set-size", "target"]) #, required = True
   ok_data = dlg.show()
   if dlg.OK:
     if ok_data[0].strip() == '':
       print('No participant alias was entered.\nPlease start again and fill in alias.')
       quit()
+    if ok_data[0].strip() == 'Select...':
+      print('No condition was selected.\nPlease start again and select a condition.')
     participantID = ok_data[0]
+    cond = ok_data[1]
   else:
       quit()
       
   ## Does data folder exist? If not create it
-  os.makedirs(os.path.dirname(__file__)+"/data", exist_ok=True)
+  data_dir = os.path.dirname(__file__)+"/data"
+  os.makedirs(data_dir, exist_ok=True)
 
   ## Does participant's folder exist? If not create it
-  participant_folder = os.path.dirname(__file__)+"/data/"+ participantID
-  os.makedirs(participant_folder, exist_ok=True)
+  #participant_folder = os.path.dirname(__file__)+"/data/"+ participantID
+  #os.makedirs(participant_folder, exist_ok=True)
 
   win = hp.initialize_window()
   
   #participant_folder = Path(__file__).parent / "data" / participantID
   #participant_folder.mkdir(parents=True, exist_ok=True)
   
-  exp.run_exp(win=win)
+  exp.run_exp(win=win, participant_id = participantID, data_dir=data_dir, cond=cond)
   
 main()
