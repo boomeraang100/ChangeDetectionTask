@@ -17,8 +17,8 @@ TRIALS_NUM = 5
 FIRST_DISPLAY_T = 0.1
 BREAK_T = 1.5
 SECOND_DISPLAY_T = 0.1
-#SCREEN_WIDTH = ?? #cm
-#SCREEN_HEIGHT = ?? #cm
+#SCREEN_WIDTH = 52,7 #cm
+#SCREEN_HEIGHT = 29,4 #cm
 SCREEN_WIDTH_H = 28.5 #cm
 SCREEN_HEIGHT_H = 18 #cm
 RESPONSE_1_TEXT = "Have noticed a change in block colors?\nPlease press the button that corresonds to your answer.\ny = Yes, n = No"
