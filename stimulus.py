@@ -6,15 +6,14 @@ from psychopy import visual, core, event
 
 class BlockStimulus:
   def __init__(
-    self,
-    win: visual.Window,
-    color: str = "blue",
-    width: int = pm.SQUARE_WIDTH,
-    height: int = pm.SQUARE_HEIGHT,
-    units: str = "pix",
-    pos=None,
+                self,
+                win: visual.Window,
+                color: str = "blue",
+                width: int = pm.SQUARE_WIDTH,
+                height: int = pm.SQUARE_HEIGHT,
+                units: str = "pix",
+                pos=None,
   ) -> None:
-    
     if pos is None:
       pos = np.zeros(2)
 

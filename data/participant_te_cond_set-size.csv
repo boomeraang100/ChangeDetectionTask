@@ -1,0 +1,2 @@
+cond,block_nr,trial_nr,set-size,target,old_color,new_color,change_detected
+set-size,0,0,8,,,,True

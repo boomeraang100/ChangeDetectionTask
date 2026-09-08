@@ -1,0 +1,9 @@
+cond,block_nr,trial_nr,change,set-size,target,old_color,new_color,change_detected
+set-size,0,0,False,3,,,,False
+set-size,0,1,False,6,[ 200. -200.],"(66.6, 97, -68.8)","(85.4, -87.2, 78.4)",True
+set-size,0,2,True,3,,,,False
+set-size,0,3,True,8,,,,False
+set-size,0,4,True,4,[ 200. -200.],"(2.1, -4.4, -3.8)",green,False
+set-size,0,5,False,4,[200. 200.],"(66.6, 97, -68.8)","(97.2, -16.1, 91.4)",False
+set-size,0,6,True,6,[  0. 400.],"(66.6, 97, -68.8)","(97.2, -16.1, 91.4)",False
+set-size,0,7,False,8,,,,False

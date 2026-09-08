@@ -1,0 +1,5 @@
+cond,block_nr,trial_nr,change,set-size,target,old_color,new_color,change_detected,rt
+set-size,0,0,True,6,[ 200. -200.],"(85.4, -87.2, 78.4)","(91.1, -41.6, -31.6)",True,0.6001427089995559
+set-size,0,1,True,4,,,,False,0.49640229099895805
+set-size,0,2,False,4,[  0. 400.],"(91.1, -41.6, -31.6)",green,False,1.6441150830014521
+set-size,0,3,False,6,,,,False,0.39359458299986727

@@ -1,0 +1,8 @@
+cond,block_nr,trial_nr,change,set-size,target,old_color,new_color,change_detected,rt
+set-size,0,0,False,8,[400.   0.],"(91.1, -41.6, -31.6)","(85.4, -87.2, 78.4)",False,1.4696202089999133
+set-size,0,1,True,3,,,,False,0.7747668340016389
+set-size,0,2,True,4,,,,False,1.1095945840006607
+set-size,0,3,False,6,[   0. -400.],"(85.4, -87.2, 78.4)","(66.6, 97, -68.8)",True,1.0562751249999565
+set-size,0,4,False,3,[  0. 400.],"(66.6, 97, -68.8)","(85.4, -87.2, 78.4)",True,1.1939314999999624
+set-size,0,5,False,4,[200. 200.],"(91.1, -41.6, -31.6)",green,True,0.8798334999992221
+set-size,0,6,True,8,,,,False,0.7793732500012993

@@ -12,13 +12,15 @@ from pathlib import Path
 
 def main():
   # Switch to the script folder
+  
+  
   script_path = os.path.dirname(sys.argv[0])
   if len(script_path) != 0:
     os.chdir(script_path)
     
   dlg = gui.Dlg(title = "Introduce participant's ID")
   dlg.addField('Participant ID') #, required = True
-  dlg.addField('Condition', choices = ["Select...", "set-size", "target"]) #, required = True
+  dlg.addField('Condition', choices = ["Select...", "set-size", "target", "continuous"]) #, required = True
   ok_data = dlg.show()
   if dlg.OK:
     if ok_data[0].strip() == '':
@@ -38,6 +40,7 @@ def main():
   ## Does participant's folder exist? If not create it
   #participant_folder = os.path.dirname(__file__)+"/data/"+ participantID
   #os.makedirs(participant_folder, exist_ok=True)
+
 
   win = hp.initialize_window()
   
