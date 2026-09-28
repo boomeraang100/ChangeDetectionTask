@@ -43,6 +43,7 @@ def main():
 
 
   win = hp.initialize_window()
+  win.mouseVisible = False
   
   #participant_folder = Path(__file__).parent / "data" / participantID
   #participant_folder.mkdir(parents=True, exist_ok=True)

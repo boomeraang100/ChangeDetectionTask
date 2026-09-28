@@ -83,10 +83,12 @@ def update(participant_id, data_dir, cond, block, trial_nr, csv_dict):
 
 def stim_list(win, cond, set_size: int = 8) -> list:
   stim_list = []
+  selected_colors = []
   pos_list = pm.STIM_POS.copy()
   colors_rgb255 = color_wheel_palette()
   #random.shuffle(pos_list)
   for stim in range(set_size):
+    print(f"poslist: {pos_list}")
     stim_pos=pos_list.pop(0)
     #if not cond == "continuous":
     if stim == 0:
@@ -94,19 +96,24 @@ def stim_list(win, cond, set_size: int = 8) -> list:
         stim_color = random.choice(pm.PALETTE)
       else:
         stim_color = random.choice(colors_rgb255)
+      print(f"stimcolor 0: {stim_color}")
     else:
-      previous_color = stim_list[-1].color
+      previous_color = selected_colors[-1]
+      print(f"previous_color: {previous_color}")
       if not cond == "continuous":
         available_colors = [
           color for color in pm.PALETTE
           if color != previous_color
         ]
+        print(f"available_colors: {available_colors}")
       else:
         available_colors = [
           color for color in colors_rgb255
           if color != previous_color
         ]
       stim_color = random.choice(available_colors)
+      print(f"stimcolor: {stim_color}")
+    selected_colors.append(stim_color)
     #stim_color = random.choice(pm.PALETTE)
     block = BlockStimulus(win=win, pos=stim_pos, color=stim_color)
     block.pos = stim_pos
@@ -115,10 +122,9 @@ def stim_list(win, cond, set_size: int = 8) -> list:
       block.square.colorSpace = "rgb255"
     block.fillColor = stim_color
     block.square.fillColor = stim_color
-    print(stim_color)
     stim_list.append(block)
       
-  if set_size > 2 and stim_list[-1].color == stim_list[0].color:
+  '''if set_size > 2 and stim_list[-1].color == stim_list[0].color:
     print(stim_list)
     if not cond == "continuous":
       available_colors = [
@@ -134,7 +140,7 @@ def stim_list(win, cond, set_size: int = 8) -> list:
       ]
     new_color = random.choice(available_colors)
     stim_list[-1].color = new_color
-    stim_list[-1].square.color = new_color
+    stim_list[-1].square.color = new_color'''
 
   return stim_list
 
@@ -218,6 +224,7 @@ def continuous_report(win, target_pos, csv_dict):
   wheel_segments = color_wheel(win)
   target = empty_target(win, target_pos)
   mouse = event.Mouse(win=win, visible=True)
+  win.mouseVisible = True
   instruction = visual.TextStim(
     win=win,
     text=pm.CONTINUOUS_REPORT_INSTR,
@@ -227,7 +234,6 @@ def continuous_report(win, target_pos, csv_dict):
   timer = core.Clock()
   instruction.draw()
   target.draw()
-  #mouse.draw()
   for segment in wheel_segments:
     segment.draw()
   win.flip()
@@ -292,6 +298,7 @@ def continuous_report(win, target_pos, csv_dict):
         for segment in wheel_segments:
             segment.draw()
         win.flip()
+  win.mouseVisible = False
   return csv_dict
 
 def change_color(target: BlockStimulus, alt_color) -> list:

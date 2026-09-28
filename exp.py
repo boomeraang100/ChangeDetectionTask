@@ -1,6 +1,6 @@
 from psychopy import visual, core, data, event, logging
 from psychopy.hardware import keyboard
-#from psychopy import iohub
+from psychopy import iohub
 import params as pm
 import helpers
 import random
@@ -168,6 +168,7 @@ def run_block(win, participant_id, data_dir, cond, block):
     # pop = size_seq.pop(0)
     # print(pop)
     # trial_change = pop[1]
+    print(f"trial: {trial}")
     trial_change = change_seq.pop(0)
     size_cond = None
     target_cond = None
@@ -187,8 +188,8 @@ def run_block(win, participant_id, data_dir, cond, block):
   
 
 def run_exp(win, participant_id, data_dir, cond):
-  #io = iohub.launchHubServer(window=win)
-  #mouse = io.devices.mouse
+  io = iohub.launchHubServer(window=win)
+  mouse = io.devices.mouse
 
   for block in range(pm.BLOCKS):
     run_block(win, participant_id, data_dir, cond, block)
