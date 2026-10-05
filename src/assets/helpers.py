@@ -1,14 +1,10 @@
 from psychopy import visual, core, event
-from PIL import Image
-import numpy as np
-import pandas as pd
-import params as pm
+from src.assets.stimulus import BlockStimulus
+import src.assets.params as pm
 import random
 import os
 import csv
-from stimulus import BlockStimulus
 import math
-#from utils.monitors import load_default_monitor
 
 
 def initialize_window():
@@ -81,7 +77,7 @@ def update(participant_id, data_dir, cond, block, trial_nr, csv_dict):
         csv_dict["rt"],
       ])
 
-def stim_list(win, cond, set_size: int = 8) -> list:
+def blocks_list(win, cond, set_size: int = 8) -> list:
   stim_list = []
   selected_colors = []
   pos_list = pm.STIM_POS.copy()
@@ -143,6 +139,63 @@ def stim_list(win, cond, set_size: int = 8) -> list:
     stim_list[-1].square.color = new_color'''
 
   return stim_list
+
+def translate_order_to_pos(order) -> list:
+  final_list = [pm.STIM_POS[item] for item in order]
+  return final_list
+
+def sort_list(set_size: int = 8):
+  stim_list = []
+  pos_list = [0, 1, 2, 3, 4, 5, 6, 7]
+  random.shuffle(pos_list)
+  for stim in range(set_size):
+    stim_list.append(pos_list.pop(0))
+  #print(f"stim_list before sort{stim_list}")
+  stim_list.sort()
+  #print(f"stim_list after sort{stim_list}")
+  final_list = translate_order_to_pos(stim_list)
+  #print(f"final_list{final_list}")
+  return final_list
+
+def stim_list(win, cond, set_size: int = 8):
+  stim_list = sort_list(set_size=set_size)
+  block_list = []
+  selected_colors = []
+  colors_wheel = color_wheel_palette()
+  colors_rgb1, colors_rgb2 = divide_wheel_palette()
+  print(colors_rgb1)
+  for stim in range(len(stim_list)):
+    stim_color = None
+    if stim % 2 == 0:
+      if not cond == "continuous":
+        stim_color = random.choice(pm.PALETTE1)
+      else:
+        stim_color = random.choice(colors_wheel)
+      print(f"stim: {stim}, stim_pos: {stim_list[stim]}, stim%2 = {stim % 2}, stim_color: {stim_color}")
+    else:
+      if not cond == "continuous":
+        stim_color = random.choice(pm.PALETTE2)
+      else:
+        stim_color = random.choice(colors_wheel)
+      print(f"stim: {stim}, stim_pos: {stim_list[stim]}, stim%2 = {stim % 2}, stim_color: {stim_color}")
+    selected_colors.append(stim_color)
+    #stim_color = random.choice(pm.PALETTE)
+    block = BlockStimulus(win=win, pos=stim_list[stim], color=stim_color)
+    #block.pos = stim_pos
+    # if cond == "continuous":
+    #   block.colorSpace = "rgb255"
+    #   block.square.colorSpace = "rgb255"
+    block.color = stim_color
+    block.square.fillColor = stim_color
+    block_list.append(block)
+  print(f"selected_colors: {selected_colors}")
+  if block_list[-1].color == block_list[0].color:
+    while block_list[-1].color == block_list[0].color:
+      if not cond == "continuous":
+        block_list[-1].color = random.choice(pm.PALETTE1)
+      else:
+        block_list[-1].color = random.choice(colors_rgb1)
+  return block_list
 
 def empty_target(win, target_pos):
   target = BlockStimulus(win, color=None, pos=target_pos)
@@ -218,6 +271,14 @@ def color_wheel(win):
 
     wheel_segments.append(segment)
   return wheel_segments
+
+def divide_wheel_palette():
+  colors_rgb255 = color_wheel_palette()
+  colors_rgb1 = []
+  colors_rgb2 = []
+  colors_rgb1.append(colors_rgb255[clr] for clr in range(127))
+  colors_rgb2.append(colors_rgb255[clr+127] for clr in range(128))
+  return colors_rgb1, colors_rgb2
 
 def continuous_report(win, target_pos, csv_dict):
   colors_rgb255 = color_wheel_palette()

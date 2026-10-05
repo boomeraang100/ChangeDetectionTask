@@ -1,14 +1,8 @@
-from psychopy import visual, core, event, gui
-#from ReachingTask import rt_params
-#import pylink
-import platform
-import params
-import helpers as hp
-import random
+from psychopy import gui
+import src.assets.helpers as hp
+import src.exp as exp
 import sys
 import os
-import exp
-from pathlib import Path
 
 def main():
   # Switch to the script folder
@@ -26,8 +20,9 @@ def main():
     if ok_data[0].strip() == '':
       print('No participant alias was entered.\nPlease start again and fill in alias.')
       quit()
-    if ok_data[0].strip() == 'Select...':
+    if ok_data[1].strip() == 'Select...':
       print('No condition was selected.\nPlease start again and select a condition.')
+      quit()
     participantID = ok_data[0]
     cond = ok_data[1]
   else:
@@ -37,16 +32,8 @@ def main():
   data_dir = os.path.dirname(__file__)+"/data"
   os.makedirs(data_dir, exist_ok=True)
 
-  ## Does participant's folder exist? If not create it
-  #participant_folder = os.path.dirname(__file__)+"/data/"+ participantID
-  #os.makedirs(participant_folder, exist_ok=True)
-
-
   win = hp.initialize_window()
   win.mouseVisible = False
-  
-  #participant_folder = Path(__file__).parent / "data" / participantID
-  #participant_folder.mkdir(parents=True, exist_ok=True)
   
   exp.run_exp(win=win, participant_id = participantID, data_dir=data_dir, cond=cond)
   

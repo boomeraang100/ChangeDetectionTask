@@ -1,3 +1,0 @@
-cond,block_nr,trial_nr,change,set-size,target,old_color,new_color,change_detected,rt
-set-size,0,0,False,4,[400.   0.],"(97.2, -16.1, 91.4)","(66.6, 97, -68.8)",True,1.0379119999997783
-set-size,0,1,True,8,,,,True,4.95522037500632

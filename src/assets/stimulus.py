@@ -1,8 +1,6 @@
-import math
+from psychopy import visual
+import src.assets.params as pm
 import numpy as np
-import scipy as sp
-import params as pm
-from psychopy import visual, core, event
 
 class BlockStimulus:
   def __init__(
@@ -13,6 +11,7 @@ class BlockStimulus:
                 height: int = pm.SQUARE_HEIGHT,
                 units: str = "pix",
                 pos=None,
+                colorSpace = "rgb255",
   ) -> None:
     if pos is None:
       pos = np.zeros(2)
@@ -23,15 +22,17 @@ class BlockStimulus:
     self.height = height
     self.units = units
     self.pos = pos
+    self.colorSpace = colorSpace
     
     self.square = visual.Rect(
-      win=win,
-      width=width,
-      height=height,
-      units=units,
-      fillColor=color,
-      pos=pos
-      )
+                              win=win,
+                              width=width,
+                              height=height,
+                              units=units,
+                              fillColor=color,
+                              pos=pos,
+                              colorSpace = colorSpace
+    )
     
   def draw(self) -> None:
     self.square.draw()

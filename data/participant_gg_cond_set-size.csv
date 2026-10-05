@@ -1,9 +1,0 @@
-cond,block_nr,trial_nr,change,set-size,target,old_color,new_color,change_detected,rt
-set-size,0,0,False,3,[200. 200.],"(57.2, 79.7, 62.8)","(97.2, -16.1, 91.4)",True,1.609393833001377
-set-size,0,1,True,4,,,,False,2.4955445420055185
-set-size,0,2,True,3,,,,False,0.946679624990793
-set-size,0,3,False,8,,,,False,0.7539329999999609
-set-size,0,4,True,6,[ 200. -200.],"(57.2, 79.7, 62.8)","(91.1, -41.6, -31.6)",False,0.91333566600224
-set-size,0,5,True,8,,,,False,0.47681054202257656
-set-size,0,6,False,6,[ 200. -200.],"(66.6, 97, -68.8)",green,False,0.5664334169996437
-set-size,0,7,False,4,[200. 200.],"(91.1, -41.6, -31.6)","(57.2, 79.7, 62.8)",False,0.4301494579995051

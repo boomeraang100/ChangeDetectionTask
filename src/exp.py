@@ -1,17 +1,13 @@
-from psychopy import visual, core, data, event, logging
-from psychopy.hardware import keyboard
+from psychopy import visual, core, event
 from psychopy import iohub
-import params as pm
-import helpers
+import src.assets.helpers as helpers
+import src.assets.params as pm
 import random
-import os
-import csv
 
 def show_msg(win, text, wait_for_keypress=True):
   """ Show task instructions on screen"""
 
-  msg = visual.TextStim(win, text,
-                        wrapWidth=pm.SCREEN_WIDTH_H/2)
+  msg = visual.TextStim(win, text) #wrapWidth=pm.SCREEN_WIDTH_H/2
   helpers.clear_screen(win)
   msg.draw()
   win.flip()
@@ -28,7 +24,7 @@ def show_msg(win, text, wait_for_keypress=True):
     helpers.clear_screen(win)
 
 def run_continuous_trial(win, cond, trialnr):
-  visual.ImageStim(win, image=f"images/fixTarget.bmp").draw()
+  visual.ImageStim(win, image=f"src/assets/fixTarget.bmp").draw()
   timer = core.Clock()
   win.flip()
   while True:
@@ -58,7 +54,7 @@ def run_continuous_trial(win, cond, trialnr):
   return csv_dict
         
 def run_trial(win, trial_change, size_cond, target_cond, cond):
-  visual.ImageStim(win, image=f"images/fixTarget.bmp").draw()
+  visual.ImageStim(win, image=f"src/assets/fixTarget.bmp").draw()
   timer = core.Clock()
   win.flip()
   while True:
@@ -75,10 +71,10 @@ def run_trial(win, trial_change, size_cond, target_cond, cond):
   try:
     if cond == "set-size":
       csv_dict["set-size"] = size_cond[0]
-      csv_dict["change_cond"] = size_cond[1]
+      csv_dict["change_cond"] = trial_change
       stim_list = helpers.stim_list(win, cond, set_size=size_cond[0])
-      for i, block in enumerate(stim_list):
-        print(i, block.pos, block.color)
+      # for i, block in enumerate(stim_list):
+      #   print(i, block.pos, block.color)
     elif cond == "target":
       stim_list = helpers.stim_list(win)
   except:
@@ -108,12 +104,13 @@ def run_trial(win, trial_change, size_cond, target_cond, cond):
     if trial_change:
       if cond == "set-size":
         if stim_list[block] is target:
+          complete_palette = pm.FULL_PALETTE
           old_color = target.color
           csv_dict["old_color"] = old_color
           previous_block = stim_list[(block - 1) % len(stim_list)]
           next_block = stim_list[(block + 1) % len(stim_list)]
           available_colors = [
-            color for color in pm.PALETTE
+            color for color in complete_palette
             if color != old_color
             and color != previous_block.color
             and color != next_block.color
@@ -133,6 +130,8 @@ def run_trial(win, trial_change, size_cond, target_cond, cond):
             csv_dict[f"new_color-{target_counter}"] = new_color
           stim_list[block].square.color = new_color
           target_counter += 1
+    #print(f"stim_list[block]: {stim_list[block]}")
+    #print(type(stim_list[block]))
     stim_list[block].draw()
   win.flip()
   core.wait(pm.SECOND_DISPLAY_T)
@@ -141,13 +140,6 @@ def run_trial(win, trial_change, size_cond, target_cond, cond):
   change_detected = helpers.change_detection(win, csv_dict)
   csv_dict["change_detected"] = change_detected
   return csv_dict
-
-def run_block2(win, participant_id, data_dir, cond, block):
-  sequence = helpers.set_size_seq2()
-  for trial in range(pm.TRIALS_PER_BLOCK):
-    trial_cond = sequence.pop(0)
-    csv_dict = run_trial(win, trial_cond[1], trial_cond[0], None, cond)
-    helpers.update(participant_id=participant_id, data_dir=data_dir, cond=cond, block=block, trial_nr=trial, csv_dict=csv_dict)
 
 def run_block(win, participant_id, data_dir, cond, block):
   change_seq = helpers.change_seq()
@@ -190,11 +182,13 @@ def run_block(win, participant_id, data_dir, cond, block):
 def run_exp(win, participant_id, data_dir, cond):
   io = iohub.launchHubServer(window=win)
   mouse = io.devices.mouse
-
+  show_msg(win, pm.INTRODUCTION_SET_SIZE)
+  show_msg(win, pm.INTRODUCTION_SET_SIZE_2)
+  show_msg(win, pm.TAKING_BREAKS)
+  show_msg(win, pm.QUESTIONS)
   for block in range(pm.BLOCKS):
+    show_msg(win, text=f"Block {block+1}. Press ENTER to continue.")
     run_block(win, participant_id, data_dir, cond, block)
-    if block + 1 < pm.BLOCKS:
-      show_msg(win, text="Now, you can take a break.\nPress enter to continue.")
-  
+  show_msg(win, pm.EXP_FINISHED)
   win.close()
   core.quit()
