@@ -1,0 +1,3 @@
+cond,block_nr,trial_nr,set-size,target,target_color,selected_color,rt
+continuous,0,0,8,"(-200, -200)","[0, 34, 222]","[10, 0, 246]",24.146821599977557
+continuous,0,1,8,"(0, 400)","[76, 180, 0]","[31, 225, 0]",4.559842700022273

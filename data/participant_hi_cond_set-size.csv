@@ -1,0 +1,11 @@
+cond,block_nr,trial_nr,change,set-size,target,old_color,new_color,change_detected,rt
+set-size,0,0,False,4,,,,False,4.336650499957614
+set-size,0,1,True,4,[   0. -400.],"(255, 34, 31)","(20, 253, 255)",True,4.04616209998494
+set-size,0,2,True,8,[400.   0.],"(0, 250, 3)","(0, 248, 27)",True,1.4763096999959089
+set-size,0,3,False,4,,,,False,0.625282299995888
+set-size,0,4,False,3,,,,False,1.6195546999806538
+set-size,0,5,True,8,[200. 200.],"(7, 5, 255)","(255, 34, 31)",False,1.2651001999620348
+set-size,0,6,False,4,,,,False,0.5242568999528885
+set-size,0,7,True,3,[400.   0.],"(255, 41, 255)","(255, 81, 31)",True,0.7682066999841481
+set-size,0,8,True,6,[-200. -200.],"(20, 253, 255)","(255, 34, 31)",True,0.4986747999791987
+set-size,0,9,False,4,,,,False,0.7746090000146069
