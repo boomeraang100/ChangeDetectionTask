@@ -24,27 +24,27 @@ def show_msg(win, text, wait_for_keypress=True):
     helpers.clear_screen(win)
 
 def run_continuous_trial(win, cond, trialnr):
-  visual.ImageStim(win, image=f"src/assets/fixTarget.bmp").draw()
-  timer = core.Clock()
-  win.flip()
+  fix_cross = visual.ImageStim(win, image=pm.FIX_CROSS_PATH)
   while True:
     keys = event.waitKeys(keyList=['escape', 'return'])
     if 'escape' in keys:
       win.close()
       core.quit()
-    elif 'return' in keys and timer.getTime() > 0.2:
       break
+  
   print(trialnr)  
   stim_list = helpers.stim_list(win, cond)
   target_pos = random.choice(pm.STIM_POS.copy())
   csv_dict = helpers.csv_dict(cond)
   csv_dict["target"] = target_pos
-  
+  fix_cross.draw()
+  win.flip()
+  core.wait(pm.FIX_CROSS_DISPLAY)
   for block in stim_list:
     if block.pos == target_pos:
       csv_dict["target_color"] = block.color
     block.draw()
-
+  fix_cross.draw()
   win.flip()
   core.wait(pm.FIRST_DISPLAY_T)
   win.flip()
@@ -54,15 +54,11 @@ def run_continuous_trial(win, cond, trialnr):
   return csv_dict
         
 def run_trial(win, trial_change, size_cond, target_cond, cond):
-  visual.ImageStim(win, image=f"src/assets/fixTarget.bmp").draw()
-  timer = core.Clock()
-  win.flip()
   while True:
-    keys = event.waitKeys(keyList=['escape', 'return'])
+    keys = event.waitKeys(keyList=['escape'])
     if 'escape' in keys:
       win.close()
       core.quit()
-    elif 'return' in keys and timer.getTime() > 0.2:
       break
   
   stim_list = None
@@ -90,11 +86,15 @@ def run_trial(win, trial_change, size_cond, target_cond, cond):
         copy_stim_list.remove(target)
         targets_list.append(target)
         
-
+  # first display fixation cross
+  fix_cross = visual.ImageStim(win, image="src/assets/cross.png")
+  fix_cross.draw()
+  win.flip()
+  core.wait(pm.FIX_CROSS_DISPLAY)
   # begin with displaying all blocks
   for block in stim_list:
     block.draw()
-
+  fix_cross.draw()
   win.flip()
   core.wait(pm.FIRST_DISPLAY_T)
   win.flip()
@@ -183,10 +183,10 @@ def run_exp(win, participant_id, data_dir, cond):
   io = iohub.launchHubServer(window=win)
   mouse = io.devices.mouse
   show_msg(win, pm.INTRODUCTION_SET_SIZE)
-  show_msg(win, pm.INTRODUCTION_SET_SIZE_2)
+  show_msg(win, pm.INTRODUCTION2_SET_SIZE)
   show_msg(win, pm.TAKING_BREAKS)
   show_msg(win, pm.QUESTIONS)
-  for block in range(pm.BLOCKS):
+  for block in range(pm.N_BLOCKS):
     show_msg(win, text=f"Block {block+1}. Press ENTER to continue.")
     run_block(win, participant_id, data_dir, cond, block)
   show_msg(win, pm.EXP_FINISHED)
