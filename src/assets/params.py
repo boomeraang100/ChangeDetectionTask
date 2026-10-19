@@ -46,9 +46,9 @@ CONTINUOUS_SEQ = [3, 4, 6, 8]
 TARGET_SEQ = [0, 1, 2, 3, 4]
 TRIALS_PER_BLOCK = 40
 FEEDBACK_TIME = 2 # sec
-FIRST_DISPLAY_T = 0.1
+FIRST_DISPLAY_T = 2#0.1
 BREAK_T = 1.5
-SECOND_DISPLAY_T = 0.1
+SECOND_DISPLAY_T = 2#0.1
 MASK_BEFORE_RESPONSE = 0.5
 
 ###############################################
