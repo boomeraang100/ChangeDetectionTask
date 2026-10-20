@@ -26,7 +26,7 @@ def update(participant_id, data_dir, cond, block, trial_nr, csv_dict):
     #write first line of csv file if not written yet
     if not file_exists:
       if cond == "set-size":
-        writer.writerow(["cond", "block_nr", "trial_nr", "change", "set-size", "target", "old_color", "new_color", "change_detected", "rt"]) # reaction time
+        writer.writerow(["cond", "block_nr", "trial_nr", "change", "set-size", "target", "old_color", "new_color", "change_detected", "key_response", "rt"]) # reaction time
       elif cond == "target":
         writer.writerow(["cond", "block_nr", "trial_nr", "set-size", "target-1", "old_color-1", "new_color-1", "target-2", "old_color-2", "new_color-2", "target-3", "old_color-3", "new_color-3", "target-4", "old_color-4", "new_color-4", "change_detected"]) # reaction time
       else:
@@ -43,6 +43,7 @@ def update(participant_id, data_dir, cond, block, trial_nr, csv_dict):
         csv_dict["old_color"],
         csv_dict["new_color"],
         csv_dict["change_detected"],
+        csv_dict["key_response"],
         csv_dict["rt"]
       ])
     elif cond == "target":
@@ -411,6 +412,7 @@ def csv_dict(cond):
       "old_color": None,
       "new_color": None,
       "change_detected": None,
+      "key_response": None,
       "rt": None
     }
   elif cond == "target":
@@ -458,11 +460,13 @@ def change_detection(win, csv_dict, wait_for_keypress=True):
         core.quit()
       if 'y' in keys:
         csv_dict["rt"] = timer.getTime()
+        csv_dict["key_response"] = "y"
         change_detected = True
         break
       if 'n' in keys:
         csv_dict["rt"] = timer.getTime()
         change_detected = False
+        csv_dict["key_response"] = "n"
         break
     clear_screen(win)
   return change_detected

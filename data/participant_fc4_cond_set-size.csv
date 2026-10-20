@@ -1,0 +1,5 @@
+cond,block_nr,trial_nr,change,set-size,target,old_color,new_color,change_detected,key_response,rt
+set-size,0,0,True,8,[-200. -200.],"(7, 5, 255)","(0, 248, 27)",False,n,1.1405386250116862
+set-size,0,1,True,6,[-400.    0.],"(20, 253, 255)","(255, 34, 31)",False,n,0.5167884170077741
+set-size,0,2,True,6,[-200.  200.],"(253, 254, 21)","(0, 11, 16)",False,n,0.5562036249903031
+set-size,0,3,True,4,[  0. 400.],"(20, 253, 255)","(0, 250, 3)",True,y,6.539766250003595

@@ -25,14 +25,7 @@ def show_msg(win, text, wait_for_keypress=True):
 
 def run_continuous_trial(win, cond, trialnr):
   fix_cross = visual.ImageStim(win, image=pm.FIX_CROSS_PATH)
-  while True:
-    keys = event.waitKeys(keyList=['escape', 'return'])
-    if 'escape' in keys:
-      win.close()
-      core.quit()
-      break
-  
-  print(trialnr)  
+  fix_cross.size *= 2
   stim_list = helpers.stim_list(win, cond)
   target_pos = random.choice(pm.STIM_POS.copy())
   csv_dict = helpers.csv_dict(cond)
@@ -54,13 +47,6 @@ def run_continuous_trial(win, cond, trialnr):
   return csv_dict
         
 def run_trial(win, trial_change, size_cond, target_cond, cond):
-  while True:
-    keys = event.waitKeys(keyList=['escape'])
-    if 'escape' in keys:
-      win.close()
-      core.quit()
-      break
-  
   stim_list = None
   targets_list = []
   csv_dict = helpers.csv_dict(cond)
@@ -85,9 +71,10 @@ def run_trial(win, trial_change, size_cond, target_cond, cond):
         target = random.choice(copy_stim_list)
         copy_stim_list.remove(target)
         targets_list.append(target)
-        
+    
   # first display fixation cross
-  fix_cross = visual.ImageStim(win, image="src/assets/cross.png")
+  fix_cross = visual.ImageStim(win, image=pm.FIX_CROSS_PATH)
+  fix_cross.size *= 2
   fix_cross.draw()
   win.flip()
   core.wait(pm.FIX_CROSS_DISPLAY)
@@ -133,6 +120,7 @@ def run_trial(win, trial_change, size_cond, target_cond, cond):
     #print(f"stim_list[block]: {stim_list[block]}")
     #print(type(stim_list[block]))
     stim_list[block].draw()
+  fix_cross.draw()
   win.flip()
   core.wait(pm.SECOND_DISPLAY_T)
   win.flip()
@@ -177,15 +165,20 @@ def run_block(win, participant_id, data_dir, cond, block):
       continuous_cond = continuous_seq.pop(0)
       csv_dict = run_continuous_trial(win, cond, trial)
       helpers.update(participant_id=participant_id, data_dir=data_dir, cond=cond, block=block, trial_nr=trial, csv_dict=csv_dict)
-  
 
 def run_exp(win, participant_id, data_dir, cond):
   io = iohub.launchHubServer(window=win)
   mouse = io.devices.mouse
-  show_msg(win, pm.INTRODUCTION_SET_SIZE)
-  show_msg(win, pm.INTRODUCTION2_SET_SIZE)
-  show_msg(win, pm.TAKING_BREAKS)
-  show_msg(win, pm.QUESTIONS)
+  if cond == "set-size":
+    show_msg(win, pm.INTRODUCTION_SET_SIZE)
+    show_msg(win, pm.INTRODUCTION2_SET_SIZE)
+    show_msg(win, pm.TAKING_BREAKS)
+    show_msg(win, pm.QUESTIONS)
+  if cond == "continuous":
+    show_msg(win, pm.INTRODUCTION_CONTINUOUS)
+    show_msg(win, pm.INTRODUCTION2_CONTINUOUS)
+    show_msg(win, pm.TAKING_BREAKS)
+    show_msg(win, pm.QUESTIONS)
   for block in range(pm.N_BLOCKS):
     show_msg(win, text=f"Block {block+1}. Press ENTER to continue.")
     run_block(win, participant_id, data_dir, cond, block)

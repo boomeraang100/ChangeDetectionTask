@@ -5,6 +5,8 @@
 FULLSCREEN = True
 BACKGROUND_COLOR = "grey"
 UNITS = "pix"
+DIS_PIX_X = 960 #1920
+DIS_PIX_Y = 540 #1080
 SCREEN_WIDTH = 52.7 #cm
 SCREEN_HEIGHT = 29.4 #cm
 SCREEN_WIDTH_H = 28.5 #cm
@@ -13,8 +15,11 @@ SCREEN_HEIGHT_H = 18 #cm
 ###############################################
 ################### STIMULI ###################
 ###############################################
-
-STIM_POS = [(0, 400), (200, 200), (400, 0), (200, -200), (0, -400), (-200, -200), (-400, 0), (-200, 200)]
+Y_OUTER = DIS_PIX_Y*3/4
+Y_MID = DIS_PIX_Y*3/8
+X_OUTER = Y_OUTER
+X_MID = Y_MID
+STIM_POS = [(0, DIS_PIX_Y*3/4), (X_MID, Y_MID), (X_OUTER, 0), (X_MID, -Y_MID), (0, -DIS_PIX_Y*3/4), (-X_MID, -Y_MID), (-X_OUTER, 0), (-X_MID, Y_MID)]
 PALETTE1 = [(255, 34, 31), (255, 81, 31), (0, 250, 3), (20, 253, 255)] # red, blue, green, cyan
 PALETTE2 = [(253, 254, 21), (255, 41, 255), (0, 11, 16), (7, 5, 255)] # yellow, purple, black, orange
 FULL_PALETTE = [(255, 34, 31), (0, 248, 27), (0, 250, 3), (20, 253, 255), (253, 254, 21), (255, 41, 255), (0, 11, 16), (255, 81, 31)]
@@ -49,14 +54,11 @@ FIX_CROSS_PATH = "src/assets/cross.png"
 
 INTRODUCTION_SET_SIZE = f"This experiment consists of {N_BLOCKS} blocks. In each block, you will see a set of squares multiple times. Every square has a different color. After their initial display, they will disappear and reappear shortly after.\n\nPress ENTER to continue."
 INTRODUCTION2_SET_SIZE = "Your task is to identify any color change after the squares reappear. For your response, you can press the key \"y\" for yes, if you observed a color change, or \"n\" for no, if you did not observe a color change.\n\nPress ENTER to continue."
-INTRODUCTION_CONTINUOUS = f"This experiment consists of {N_BLOCKS} blocks. In each block, you will see a set of squares multiple times. During a trial, every square is filled with different colors. After their initial display, they will disappear and only one empty sqaure from the set will be marked. \n\nPress ENTER to continue."
-INTRODUCTION2_CONTINUOUS = "Your task is to select a color for the target that matches the color of the square displayed at the same position during the first half of the trial. You can choose the color from a color wheel displayed an the center of the screen. You can reselect the color as many times as you want. When you want to submit your final response and continue with the next trial, press enter. \n\nPress ENTER to continue."
-TAKING_BREAKS = "To start a trial, look at the fixation cross and press enter. You can take breaks at any time, except during a trial.\n\nPress ENTER to continue."
+INTRODUCTION_CONTINUOUS = f"This experiment consists of {N_BLOCKS} blocks. In each block, you will see a set of squares multiple times. During a trial, every square has a different color. After their initial display, they will disappear and only one empty sqaure from the set reappear. \n\nPress ENTER to continue."
+INTRODUCTION2_CONTINUOUS = "Your task is to select a color for the target that matches the color of the square displayed at the same position during the first half of the trial. You can choose the color from a color wheel displayed at the center of the screen. You can reselect the color as many times as you want. When you want to submit your final response and continue with the next trial, press enter. \n\nPress ENTER to continue."
+TAKING_BREAKS = "A new trial will start automatically after you submit your response. You can take breaks before submitting or between blocks.\n\nPress ENTER to continue."
 QUESTIONS = "Do you have any questions left? If so, you can ask your experimenter now.\n\nOtherwise, press ENTER to start the experiment."
-RESPONSE_1_TEXT = "Have noticed a change in block colors?\nPlease press the key that corresonds to your answer.\n\ny = Yes, n = No"
-RESPONSE_2_TEXT = "How confident are you in your judgment?\nPlease press the key that corresonds to your answer.\n1 = not sure; 4 = very confident"
+RESPONSE_1_TEXT = "Did the colours change?\nPlease press the key that corresonds to your answer.\n\ny = Yes, n = No"
 CONTINUOUS_REPORT_INSTR = "Click the color that most closely matches the marked target's color. Press ENTER to submit your response."
 CONTINUOUS_REPORT_POS = (0, 470)
-REACHED_TARGET = "Success"
-MISSED_TARGET = "Fail"
 EXP_FINISHED = "You have finished the experiment.\n\nThank you for participating :)"

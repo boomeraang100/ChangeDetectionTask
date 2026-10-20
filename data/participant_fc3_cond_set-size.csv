@@ -1,0 +1,4 @@
+cond,block_nr,trial_nr,change,set-size,target,old_color,new_color,change_detected,key_response,rt
+set-size,0,0,False,6,,,,True,y,4.040698875003727
+set-size,0,1,False,4,,,,False,n,1.6603586669953074
+set-size,0,2,False,8,,,,True,y,0.648308875010116
